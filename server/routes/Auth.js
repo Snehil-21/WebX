@@ -9,8 +9,9 @@ router.use(express.json());
 router.use(cors());
 router.use(express.urlencoded({ extended: false }));
 
-const { signupUser } = controller;
+const { signupUser, loginUser } = controller;
 
 router.post('/signup', signupUser);
+router.post('/login', loginUser);
 
 module.exports = router;
