@@ -4,12 +4,12 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Social from '../assets/main-logo.svg';
+import ShopLogo from '../../assets/shop-logo.jpg';
 import { TextField } from '@material-ui/core';
 import { motion } from "framer-motion"
 import { useToasts } from 'react-toast-notifications';
 
-import * as authActions from '../store/actions/Auth';
+import * as authActions from '../../store/actions/Auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100vw',
   },
   social: {
-    height: '75%',
-    width: '40%',
+    height: '100%',
+    width: '50%',
   },
   inDiv: {
       width: '50%',
@@ -70,7 +70,7 @@ export default function Login() {
   const loginHandler = async () => {
       try {
         await dispatch(authActions.logInUser(userName, password));
-        history.push('/home')
+        history.replace('/home')
       } catch (error) {
         addToast(error.message, {appearance: 'error'});
     }
@@ -79,7 +79,7 @@ export default function Login() {
   return (
     <div className={classes.body}>
         <div className={classes.inDiv}>
-            <Typography style={{color: '#000D4B', fontWeight: 'bold', fontSize: '2rem'}}>Log In <span style={{color: '#CCCFDB'}}>Meet.Ly</span></Typography>
+            <Typography style={{color: '#000D4B', fontWeight: 'bold', fontSize: '2rem'}}>Log In <span style={{color: '#CCCFDB'}}>Shop.Ly</span></Typography>
             <form className={classes.root} noValidate autoComplete="off">
                 <TextField id="outlined-basic" label="Username"     variant="outlined" className={classes.textfield} value={userName} onChange={(event) => setUserName(event.target.value)} />
                 <TextField id="outlined-basic" label="Password"     variant="outlined" type="password" className={classes.textfield} value={password} onChange={(event) => setPassword(event.target.value)} />
@@ -88,7 +88,7 @@ export default function Login() {
         </div>
         <motion.img 
             transition={{ ease: "easeOut", duration: 2 }}
-            src={Social} 
+            src={ShopLogo} 
             alt="Social Media" 
             className={classes.social} 
         />

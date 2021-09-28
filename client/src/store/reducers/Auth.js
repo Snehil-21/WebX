@@ -1,7 +1,8 @@
-import { LOGIN_USER } from '../actions/Auth';
+import { LOGIN_USER, LOGIN_ADMIN } from '../actions/Auth';
 
 const initialState = {
-    isAuth: false,
+    isAuthCustomer: false,
+    isAuthAdmin: false,
     fullName: '',
     email: '',
     username: '',
@@ -15,7 +16,16 @@ export default function AuthReducer (state= initialState, action) {
                 fullName: action.payload.fullName,
                 email: action.payload.email,
                 username: action.payload.username,
-                isAuth: true,
+                isAuthCustomer: true,
+            }
+        }
+        case LOGIN_ADMIN: {
+            return{
+                ...state,
+                fullName: action.payload.fullName,
+                email: action.payload.email,
+                username: action.payload.username,
+                isAuthAdmin: true,
             }
         }
         default: {

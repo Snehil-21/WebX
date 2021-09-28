@@ -2,9 +2,12 @@ import axios from 'axios';
 
 export const SIGNUP_USER = 'SIGNUP_USER';
 export const LOGIN_USER = 'LOGIN_USER';
+export const SIGNUP_ADMIN = 'SIGNUP_ADMIN';
+export const LOGIN_ADMIN = 'LOGIN_ADMIN';
 
 export const signupUser = (fullName, email, username, password) => {
     return async(dispatch) => {
+        console.log('sign up admin')
         try {
             await axios({
                 method: 'POST',
@@ -46,7 +49,64 @@ export const logInUser = (username, password) => {
                         fullName: response.data.message.fullName,
                         email: response.data.message.email,
                         username: response.data.message.username,
-                        isAuth: true
+                        isAuthCustomer: true
+                    }
+                })
+            }
+            else {
+                throw new Error(response.data.message)
+            }
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+}
+
+export const signupAdmin = (fullName, email, username, password) => {
+    return async(dispatch) => {
+        try {
+            await axios({
+                method: 'POST',
+                url: '/auth/admin/signup',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                data: JSON.stringify({
+                    fullName,
+                    email,
+                    username,
+                    password,
+                })
+            });
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
+}
+
+export const logInAdmin = (username, password) => {
+    return async(dispatch) => {
+        console.log('Here')
+        try {
+            const response = await axios({
+                method: 'POST',
+                url: '/auth/admin/login',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                data: JSON.stringify({
+                    username,
+                    password,
+                })
+            });
+            if(response.status === 200 && response.data.success) {
+                dispatch({
+                    type: LOGIN_ADMIN,
+                    payload: {
+                        fullName: response.data.message.fullName,
+                        email: response.data.message.email,
+                        username: response.data.message.username,
+                        isAuthAdmin: true
                     }
                 })
             }

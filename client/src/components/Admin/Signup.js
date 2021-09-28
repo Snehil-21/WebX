@@ -3,14 +3,12 @@ import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Social from '../assets/main-logo.svg';
 import { TextField } from '@material-ui/core';
-import { motion } from "framer-motion"
 import { useToasts } from 'react-toast-notifications';
 
-import * as authActions from '../store/actions/Auth';
+import * as authActions from '../../store/actions/Auth';
 
-import Navbar from './NavBar';
+import Navbar from '../NavBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,10 +27,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     borderRadius: '12px',
   },
-  rightContainer: {
-    position: 'relative',
-    flexGrow: 1,
-  },
   body: {
     display: 'flex',
     justifyContent: 'space-around',
@@ -41,12 +35,8 @@ const useStyles = makeStyles((theme) => ({
     height: '80vh',
     width: '100vw',
   },
-  social: {
-    height: '75%',
-    width: '40%',
-  },
   inDiv: {
-      width: '50%',
+      width: '100%',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
@@ -77,7 +67,7 @@ export default function SignUp() {
       }
 
       if(fullName.length > 0 && email.length > 0 && userName.length >= 4 &&password.length >= 6) {
-          await dispatch(authActions.signupUser(fullName, email, userName, password));
+          await dispatch(authActions.signupAdmin(fullName, email, userName, password));
           setFullName('');
           setEmail('');
           setUserName('');
@@ -95,10 +85,10 @@ export default function SignUp() {
 
   return (
       <>
-          <Navbar showLogin={true}/>
+          <Navbar admin={true}/>
           <div className={classes.body}>
               <div className={classes.inDiv}>
-                  <Typography style={{color: '#000D4B', fontWeight: 'bold', fontSize: '2rem'}}>Sign Up <span style={{color: '#CCCFDB'}}>Meet.Ly</span></Typography>
+                  <Typography style={{color: '#000D4B', fontWeight: 'bold', fontSize: '2rem'}}>Admin <span style={{color: '#CCCFDB'}}>Sign Up</span></Typography>
                   <form className={classes.root} noValidate autoComplete="off">
                       <TextField id="outlined-basic" label="Full Name"     variant="outlined" className={classes.textfield} value={fullName} onChange={(event) => setFullName(event.target.value)} />
                       <TextField id="outlined-basic" label="Email"     variant="outlined" className={classes.textfield} value={email} onChange={(event) => setEmail(event.target.value)} />
@@ -108,12 +98,6 @@ export default function SignUp() {
                       <Button variant="contained" color="primary" className={classes.button} onClick={signUpHandler}>Sign-Up</Button>
                   </form>
               </div>
-              <motion.img 
-                  transition={{ ease: "easeOut", duration: 2 }}
-                  src={Social} 
-                  alt="Social Media" 
-                  className={classes.social} 
-              />
           </div>
       </>
   );
