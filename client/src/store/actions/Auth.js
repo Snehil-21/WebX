@@ -4,6 +4,7 @@ export const SIGNUP_USER = 'SIGNUP_USER';
 export const LOGIN_USER = 'LOGIN_USER';
 export const SIGNUP_ADMIN = 'SIGNUP_ADMIN';
 export const LOGIN_ADMIN = 'LOGIN_ADMIN';
+export const LOGOUT = 'LOGOUT';
 
 export const signupUser = (fullName, email, username, password) => {
     return async(dispatch) => {
@@ -115,6 +116,18 @@ export const logInAdmin = (username, password) => {
             }
         } catch (error) {
             throw new Error(error.message);
+        }
+    }
+}
+
+export const logout = () => {
+    return async(dispatch) => {
+        try {
+                dispatch({
+                type: LOGOUT,
+            })
+        } catch (error) {
+            throw new Error()
         }
     }
 }

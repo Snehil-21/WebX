@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 
 const useStyles = makeStyles((theme) => ({
     parent: {
-        '&.css-1oqqzyl-MuiContainer-root' : {
+        '&. css-1oqqzyl-MuiContainer-root' : {
             margin: '0',
             padding: '0',
             maxWidth: '100%',

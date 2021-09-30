@@ -1,11 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
+
+import * as authActions from '../store/actions/Auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,8 +70,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ButtonAppBar({ admin }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { addToast } = useToasts();
+  const history = useHistory();
   const auth = useSelector(state => state.Auth);
-  // console.log(auth)
+  
+  const handleLogout = async () => {
+    try {
+      console.log('Here')
+      await dispatch(authActions.logout())
+      history.replace('/login')
+    } catch (error) {
+      addToast('Something went wrong!', {appearance: 'error'});
+    }
+  }
+  
   return (
       <AppBar position="sticky" className={classes.root}>
         <Toolbar>
@@ -85,7 +103,7 @@ export default function ButtonAppBar({ admin }) {
                 <Button variant="contained" color="primary" className={classes.button}>Login</Button>
               </Link>
             </div>}
-            {(auth.isAuthCustomer || auth.isAuthAdmin) && <p style={{color: 'purple', fontWeight: '600'}} className={classes.rightContainer}>{auth.fullName}</p>}
+            {(auth.isAuthCustomer || auth.isAuthAdmin) && <Button variant="contained" color="primary" onClick={handleLogout} className={classes.button}>Logout</Button>}
         </Toolbar>
       </AppBar>
   );
