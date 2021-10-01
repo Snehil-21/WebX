@@ -8,7 +8,6 @@ export const LOGOUT = 'LOGOUT';
 
 export const signupUser = (fullName, email, username, password) => {
     return async(dispatch) => {
-        console.log('sign up admin')
         try {
             await axios({
                 method: 'POST',

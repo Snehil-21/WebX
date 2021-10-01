@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const Auth = require('./routes/Auth');
+const Product = require('./routes/Product');
 
 const app = express()
 const PORT = process.env.PORT || 5000;
@@ -40,6 +41,7 @@ const connectDB = async () => {
 connectDB();
 
 app.use('/auth', Auth);
+app.use('/product', Product);
 
 app.get('/', (req, res) => {
     res.send('Welcome to Meet.Ly!');

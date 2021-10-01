@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import {Container, TextField , Button} from '@mui/material';
+import { useToasts } from 'react-toast-notifications';
 
 import NavBar from '../NavBar';
+import * as productActions from '../../store/actions/Product';
 
 export default function Home () {
-    const [prodTitle, setProdTitle] = ('')
-    const [quantity, setQuantity] = ('')
-    const [price, setPrice] = ('')
+    const [productTitle, setProductTitle] = useState('')
+    const [quantity, setQuantity] = useState('')
+    const [productPrice, setProductPrice] = useState('')
 
-    const addProductHandler = (e) => {
+    const [deleteProductTitle, setDeleteProductTitle] = useState('')
+
+    const { addToast } = useToasts();
+    const dispatch = useDispatch();
+    const adminEmail = useSelector(state => state.Auth.email)
+
+    const addProductHandler = async (e) => {
         e.preventDefault()
-        console.log('Added!')
+        try {
+            await dispatch(productActions.addProduct(
+                productTitle,
+                productPrice,
+                quantity,
+                adminEmail,
+            ))
+            setProductTitle('')
+            setProductPrice('')
+            setQuantity('')
+        } catch (error) {
+            addToast(error.message, {appearance: 'error'});
+        }
     }
 
     return (
@@ -20,11 +42,22 @@ export default function Home () {
         <div>
             <Wrapper>
                 <AddForm>
-                    <h2 style={{color: 'white'}}>Add a new Product into the Shop!</h2>
-                    <StyledTextField id="outlined-basic" label="Product Title" variant="outlined" value={prodTitle} onChange={(event) => setProdTitle(event.target.value)} />
-                    <StyledTextField id="outlined-basic" label="Quantity" variant="outlined" value={quantity} onChange={(event) => setQuantity(event.target.value)} />
-                    <StyledTextField id="outlined-basic" label="Price" variant="outlined" value={price} onChange={(event) => setPrice(event.target.value)} />
+                    <h2 style={{color: 'turquoise'}}>Add a new Product into the Shop!</h2>
+                    
+                    <StyledTextField id="outlined-basic" placeholder="Product Title" variant="outlined" value={productTitle} onChange={(event) => setProductTitle(event.target.value)} />
+                    
+                    <StyledTextField id="outlined-basic" placeholder="Quantity" variant="outlined" value={quantity} onChange={(event) => setQuantity(event.target.value)} />
+                    
+                    <StyledTextField id="outlined-basic" placeholder="Price" variant="outlined" value={productPrice} onChange={(event) => setProductPrice(event.target.value)} />
+                    
                     <StyledButton variant="contained" color="primary" onClick={addProductHandler}>Add Product</StyledButton>
+                </AddForm>
+                <AddForm>
+                    <h2 style={{color: 'turquoise'}}>Remove an existing Product from the Shop!</h2>
+                    
+                    <StyledTextField id="outlined-basic" placeholder="Product Title" variant="outlined" value={deleteProductTitle} onChange={(event) => setDeleteProductTitle(event.target.value)} />
+    
+                    <StyledButton variant="contained" color="primary" onClick={addProductHandler}>Remove Product</StyledButton>
                 </AddForm>
             </Wrapper>
         </div>
@@ -51,11 +84,15 @@ const StyledTextField = styled(TextField)`
         display: block;
         border-radius: 12px;
         background: white;
-    }
+        border: none;
+        outline: none;
+        color: black;
+    } 
 `;
 
 const AddForm = styled(Container)`
     &.css-1oqqzyl-MuiContainer-root {
+        position: relative;
         background: #000;
         margin: 0 0 2% 0;
         max-width: 80%;

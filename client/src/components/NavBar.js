@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'stretch',
     backgroundColor: '#ffffff',
-    zIndex: 0,
+    // zIndex: 0,
     padding: '0 12%',
   },
   title: {
@@ -77,7 +77,6 @@ export default function ButtonAppBar({ admin }) {
   
   const handleLogout = async () => {
     try {
-      console.log('Here')
       await dispatch(authActions.logout())
       history.replace('/login')
     } catch (error) {
