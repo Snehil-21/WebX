@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'stretch',
     backgroundColor: '#ffffff',
-    // zIndex: 0,
+    zIndex: 10,
     padding: '0 12%',
   },
   title: {

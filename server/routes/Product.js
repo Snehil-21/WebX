@@ -8,8 +8,9 @@ router.use(express.json());
 router.use(cors());
 router.use(express.urlencoded({ extended: false }));
 
-const { addProduct } = controller;
+const { getAllProducts, addProduct } = controller;
 
+router.get('/getAllProducts', getAllProducts);
 router.post('/addProduct', addProduct);
 
 module.exports = router;

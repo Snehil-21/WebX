@@ -8,6 +8,7 @@ import './App.css';
 import { ToastProvider } from 'react-toast-notifications';
 import Routes from './Routes';
 import AuthReducer from './store/reducers/Auth';
+import ProductReducer from './store/reducers/Product';
 
 function App() {
   const persistConfig = {
@@ -17,6 +18,7 @@ function App() {
 
   const rootReducer = combineReducers({
     Auth: AuthReducer,
+    Product: ProductReducer,
   });
 
   const persistedReducer = persistReducer(persistConfig, rootReducer);
