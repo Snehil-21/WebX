@@ -27,7 +27,7 @@ export const getAllProducts = () => {
     }
 }
 
-export const addProduct = (productTitle, productPrice, quantity, adminEmail) => {
+export const addProduct = (productTitle, productPrice, quantity, description, adminEmail) => {
     return async(dispatch) => {
         try {
             const response = await axios({
@@ -40,6 +40,7 @@ export const addProduct = (productTitle, productPrice, quantity, adminEmail) => 
                     productTitle,
                     productPrice,
                     quantity,
+                    description,
                     adminEmail,
                 })
             });

@@ -12,6 +12,7 @@ export default function Home () {
     const [productTitle, setProductTitle] = useState('')
     const [quantity, setQuantity] = useState('')
     const [productPrice, setProductPrice] = useState('')
+    const[description, setDescription] = useState('')
 
     const [deleteProductTitle, setDeleteProductTitle] = useState('')
 
@@ -26,11 +27,13 @@ export default function Home () {
                 productTitle,
                 productPrice,
                 quantity,
+                description,
                 adminEmail,
             ))
             setProductTitle('')
             setProductPrice('')
             setQuantity('')
+            setDescription('')
         } catch (error) {
             addToast(error.message, {appearance: 'error'});
         }
@@ -49,6 +52,8 @@ export default function Home () {
                     <StyledTextField id="outlined-basic" placeholder="Quantity" variant="outlined" value={quantity} onChange={(event) => setQuantity(event.target.value)} />
                     
                     <StyledTextField id="outlined-basic" placeholder="Price" variant="outlined" value={productPrice} onChange={(event) => setProductPrice(event.target.value)} />
+
+                    <StyledTextField id="outlined-basic" placeholder="Description" variant="outlined" value={description} onChange={(event) => setDescription(event.target.value)} />
                     
                     <StyledButton variant="contained" color="primary" onClick={addProductHandler}>Add Product</StyledButton>
                 </AddForm>
@@ -101,6 +106,8 @@ const AddForm = styled(Container)`
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        border-radius: 25px;
+        margin-top: 2px;
     }
 `;
 

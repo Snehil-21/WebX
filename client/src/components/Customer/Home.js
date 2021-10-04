@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Container } from '@mui/material';
+import { Container, Button } from '@mui/material';
 
 import * as productActions from '../../store/actions/Product';
 import NavBar from '../NavBar';
@@ -18,7 +19,11 @@ const Home = () => {
         getProducts();
     }, [dispatch])
 
-    console.log('Products', allProd)
+    const addToCartHandler = () => {
+        console.log('Added')
+    }
+
+    // console.log('Products', allProd)
 
     return (
         <>
@@ -27,12 +32,18 @@ const Home = () => {
                 <ProductWrap>
                     {allProd.map(product => {
                         return (
-                            <>
-                                <ProductCard>
+                            <ProductCard key={product._id}>
                                     <h4>{product.productTitle}</h4>
                                     <h5>Price: {product.productPrice}</h5>
-                                </ProductCard>
-                            </>
+                                    <div 
+                                        style={{
+                                            display: 'flex',
+                                            gap: '8px',
+                                        }}>
+                                        <Link style={{textDecoration: 'none'}} to={`/product/${product._id}`}><StyledButton variant="contained" color="primary">View More</StyledButton></Link>
+                                        <Link style={{textDecoration: 'none'}} to=''><StyledButton variant="contained" color="primary" onClick={addToCartHandler}>Add To Cart</StyledButton></Link>
+                                    </div>
+                            </ProductCard>
                         )
                     })}
                 </ProductWrap>
@@ -52,6 +63,13 @@ const StyledContainer = styled(Container)`
     },
 `;
 
+const StyledButton = styled(Button)`
+    &.css-sghohy-MuiButtonBase-root-MuiButton-root {
+        margin-bottom: 2%;
+        margin-top: 3%;
+    }
+`;
+
 const ProductWrap = styled.div`
     width: 96%;
     height: 100%;
@@ -68,7 +86,7 @@ const ProductCard = styled.div`
     display: flex;
     position: relative;
     flex-direction: column;
-    color: gray;
+    color: black;
     background: beige;
     text-transform: capitalize;
     justify-content: center;

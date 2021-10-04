@@ -14,6 +14,10 @@ const productSchema = new Schema({
         type: String,
         required: true,
     },
+    description: {
+        type: String,
+        required: true,
+    },
     addedBy: {
         type: Schema.Types.ObjectId,
         ref: 'Admin',

@@ -6,6 +6,7 @@ import Home from './components/Customer/Home';
 import AdminHome from './components/Admin/Home';
 import AdminSignup from './components/Admin/Signup';
 import AdminLogin from './components/Admin/Login';
+import ProductDescription from "./components/Customer/ProductDescription";
 
 const Routes = () => {
     return (
@@ -17,6 +18,7 @@ const Routes = () => {
                 <Route path='/admin/signup' exact component={AdminSignup} />
                 <Route path='/admin/login' exact component={AdminLogin} />
                 <Route path='/admin/home' exact component={AdminHome} />
+                <Route path='/product/:id' exact component={ProductDescription} />
             </Switch>
         </Router>
     )

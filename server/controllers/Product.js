@@ -7,7 +7,7 @@ exports.getAllProducts = async(req, res) => {
         if(allProducts.length == 0) {
             return res.status(200).json({success: false, message: 'No products found in the shop!'})
         }
-
+        // allProducts.populate('addedBy')
         return res.status(200).json({success: true, message: allProducts})
     } catch(error) {
         res.status(400).json({success: false, message: error.message});
@@ -15,7 +15,7 @@ exports.getAllProducts = async(req, res) => {
 }
 
 exports.addProduct = async(req, res) => {
-    const { productTitle, productPrice, quantity, adminEmail } = req.body;
+    const { productTitle, productPrice, quantity, description, adminEmail } = req.body;
     try {
         const isProduct = await Product.findOne({productTitle});
         
@@ -29,7 +29,7 @@ exports.addProduct = async(req, res) => {
         }
 
         const product = new Product({
-            productTitle, productPrice, inStock: quantity, addedBy: isAdmin._id
+            productTitle, productPrice, inStock: quantity, description, addedBy: isAdmin._id
         });
         await product.save();
         return res.status(200).json({success: true, message: 'Product added successfully!'})
