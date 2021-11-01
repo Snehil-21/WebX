@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -12,7 +12,9 @@ export default function Home () {
     const [productTitle, setProductTitle] = useState('')
     const [quantity, setQuantity] = useState('')
     const [productPrice, setProductPrice] = useState('')
-    const[description, setDescription] = useState('')
+    const [description, setDescription] = useState('')
+    const [productPic, setProductPic] = useState('')
+    const fileRef = useRef(null);
 
     const [deleteProductTitle, setDeleteProductTitle] = useState('')
 
@@ -23,24 +25,38 @@ export default function Home () {
     const addProductHandler = async (e) => {
         e.preventDefault()
         try {
-            await dispatch(productActions.addProduct(
-                productTitle,
-                productPrice,
-                quantity,
-                description,
-                adminEmail,
-            ))
-            setProductTitle('')
-            setProductPrice('')
-            setQuantity('')
-            setDescription('')
+            if(productTitle && productPrice && quantity && description && productPic && adminEmail) {
+                await dispatch(productActions.addProduct(
+                    productTitle,
+                    productPrice,
+                    quantity,
+                    description,
+                    productPic,
+                    adminEmail,
+                ))
+                setProductTitle('')
+                setProductPrice('')
+                setQuantity('')
+                setDescription('')
+            }
         } catch (error) {
             addToast(error.message, {appearance: 'error'});
         }
     }
 
+    const handleChange = (e) => {
+        setProductPic(e.target.files[0])
+    }
+
+    // console.log(productPic);
     return (
         <>
+        <input
+            style={{display: 'none'}}
+            type="file"
+            ref={fileRef}
+            onChange={handleChange}
+        />
         <NavBar />
         <div>
             <Wrapper>
@@ -54,6 +70,9 @@ export default function Home () {
                     <StyledTextField id="outlined-basic" placeholder="Price" variant="outlined" value={productPrice} onChange={(event) => setProductPrice(event.target.value)} />
 
                     <StyledTextField id="outlined-basic" placeholder="Description" variant="outlined" value={description} onChange={(event) => setDescription(event.target.value)} />
+
+                    <StyledButton type="button" onClick= { () => fileRef.current.click() } >Add Picture</StyledButton>
+                    {productPic && <h5 style={{color: 'gray'}}>Picture Uploaded. Edit above or Save!</h5>}
                     
                     <StyledButton variant="contained" color="primary" onClick={addProductHandler}>Add Product</StyledButton>
                 </AddForm>

@@ -88,7 +88,7 @@ export default function ButtonAppBar({ admin }) {
       <AppBar position="sticky" className={classes.root}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Shop.Ly
+            Shop.Fy
           </Typography>
           {admin && (!auth.isAuthCustomer && !auth.isAuthAdmin) &&
             <div className={classes.rightContainer}>

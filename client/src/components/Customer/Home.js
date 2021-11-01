@@ -41,13 +41,13 @@ const Home = () => {
                                             gap: '8px',
                                         }}>
                                         <Link style={{textDecoration: 'none'}} to={`/product/${product._id}`}><StyledButton variant="contained" color="primary">View More</StyledButton></Link>
-                                        <Link style={{textDecoration: 'none'}} to=''><StyledButton variant="contained" color="primary" onClick={addToCartHandler}>Add To Cart</StyledButton></Link>
+                                        <Link style={{textDecoration: 'none'}} to=''><StyledButton variant="contained" color="primary" onClick={addToCartHandler}>Wishlist</StyledButton></Link>
                                     </div>
                             </ProductCard>
                         )
                     })}
                 </ProductWrap>
-                <p style={{position: 'relative'}}>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab modi, eveniet quasi debitis placeat accusamus accusantium praesentium molestiae dolore, quis doloribus velit facere ipsa quibusdam ratione inventore obcaecati. Similique, aliquam.</p>
+                <p style={{position: 'relative'}}>Sample Text for now! Actual Data will be provided at the later stage here.</p>
             </StyledContainer>
         </>
     )

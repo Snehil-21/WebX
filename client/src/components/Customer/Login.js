@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import ShopLogo from '../../assets/shop-logo.jpg';
+// import ShopLogo from '../../assets/shop-logo.jpg';
+import StockLogo from '../../assets/stockCover.svg';
 import { TextField } from '@material-ui/core';
 import { motion } from "framer-motion"
 import { useToasts } from 'react-toast-notifications';
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   social: {
     height: '100%',
-    width: '50%',
+    width: '40%',
   },
   inDiv: {
       width: '50%',
@@ -79,7 +80,7 @@ export default function Login() {
   return (
     <div className={classes.body}>
         <div className={classes.inDiv}>
-            <Typography style={{color: '#000D4B', fontWeight: 'bold', fontSize: '2rem'}}>Log In <span style={{color: '#CCCFDB'}}>Shop.Ly</span></Typography>
+            <Typography style={{color: '#000D4B', fontWeight: 'bold', fontSize: '2rem'}}>Log In <span style={{color: '#CCCFDB'}}>StockStop</span></Typography>
             <form className={classes.root} noValidate autoComplete="off">
                 <TextField id="outlined-basic" label="Username"     variant="outlined" className={classes.textfield} value={userName} onChange={(event) => setUserName(event.target.value)} />
                 <TextField id="outlined-basic" label="Password"     variant="outlined" type="password" className={classes.textfield} value={password} onChange={(event) => setPassword(event.target.value)} />
@@ -88,7 +89,7 @@ export default function Login() {
         </div>
         <motion.img 
             transition={{ ease: "easeOut", duration: 2 }}
-            src={ShopLogo} 
+            src={StockLogo} 
             alt="Social Media" 
             className={classes.social} 
         />

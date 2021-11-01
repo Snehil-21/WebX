@@ -15,7 +15,7 @@ exports.getAllProducts = async(req, res) => {
 }
 
 exports.addProduct = async(req, res) => {
-    const { productTitle, productPrice, quantity, description, adminEmail } = req.body;
+    const { productTitle, productPrice, quantity, description, picUrl, adminEmail } = req.body;
     try {
         const isProduct = await Product.findOne({productTitle});
         
@@ -29,7 +29,7 @@ exports.addProduct = async(req, res) => {
         }
 
         const product = new Product({
-            productTitle, productPrice, inStock: quantity, description, addedBy: isAdmin._id
+            productTitle, productPrice, inStock: quantity, description, productPic: picUrl, addedBy: isAdmin._id
         });
         await product.save();
         return res.status(200).json({success: true, message: 'Product added successfully!'})

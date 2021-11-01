@@ -27,9 +27,20 @@ export const getAllProducts = () => {
     }
 }
 
-export const addProduct = (productTitle, productPrice, quantity, description, adminEmail) => {
+export const addProduct = (productTitle, productPrice, quantity, description, productPic, adminEmail) => {
     return async(dispatch) => {
         try {
+            const formData = new FormData();
+            formData.append('file', productPic)
+            formData.append('upload_preset', 'customPreset')
+            
+            const cloudinaryRes = await axios({
+                method: 'POST',
+                url: 'https://api.cloudinary.com/v1_1/cloudsnehil/image/upload',
+                data: formData
+            })
+            // console.log(cloudinaryRes);
+            const picUrl = cloudinaryRes.data.public_id
             const response = await axios({
                 method: 'POST',
                 url: '/product/addProduct',
@@ -41,6 +52,7 @@ export const addProduct = (productTitle, productPrice, quantity, description, ad
                     productPrice,
                     quantity,
                     description,
+                    picUrl,
                     adminEmail,
                 })
             });
