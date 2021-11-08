@@ -45,7 +45,27 @@ export default function Home () {
     }
 
     const handleChange = (e) => {
-        setProductPic(e.target.files[0])
+        const picFile = e.target.files[0]
+        const reader = new FileReader()
+
+        reader.readAsDataURL(picFile)
+        reader.onloadend = () => {
+            setProductPic(reader.result)   
+        }
+    }
+
+    const removeProductHandler = async (e) => {
+        e.preventDefault()
+        try{
+            if(deleteProductTitle.length > 0) {
+                await dispatch(productActions.removeProduct(
+                    deleteProductTitle,
+                ))
+                setDeleteProductTitle('')
+            }
+        } catch (err) {
+            addToast(err.message, {appearance: 'error'});
+        }
     }
 
     // console.log(productPic);
@@ -81,7 +101,7 @@ export default function Home () {
                     
                     <StyledTextField id="outlined-basic" placeholder="Product Title" variant="outlined" value={deleteProductTitle} onChange={(event) => setDeleteProductTitle(event.target.value)} />
     
-                    <StyledButton variant="contained" color="primary" onClick={addProductHandler}>Remove Product</StyledButton>
+                    <StyledButton variant="contained" color="primary" onClick={removeProductHandler}>Remove Product</StyledButton>
                 </AddForm>
             </Wrapper>
         </div>

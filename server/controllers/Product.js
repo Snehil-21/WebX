@@ -1,5 +1,15 @@
+require('dotenv').config()
+const cloudinary = require('cloudinary').v2
+
 const Admin = require('../models/Admin');
 const Product = require('../models/Product');
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.CLOUD_KEY, 
+    api_secret: process.env.CLOUD_SECRET,
+    secure: true
+})
 
 exports.getAllProducts = async(req, res) => {
     try{
@@ -15,7 +25,8 @@ exports.getAllProducts = async(req, res) => {
 }
 
 exports.addProduct = async(req, res) => {
-    const { productTitle, productPrice, quantity, description, picUrl, adminEmail } = req.body;
+    const { productTitle, productPrice, quantity, description, productPic, adminEmail } = req.body;
+    
     try {
         const isProduct = await Product.findOne({productTitle});
         
@@ -28,12 +39,23 @@ exports.addProduct = async(req, res) => {
             return res.status(200).json({success: false, message: 'Only admins can add a product into the shop.'});
         }
 
+        const cloudinaryRes = await cloudinary.uploader.upload(
+            productPic,
+            {
+                upload_preset: 'customPreset',
+                folder: 'shop_products',
+                use_filename: true,
+                unique_filename: false,
+            },
+        )
+
         const product = new Product({
-            productTitle, productPrice, inStock: quantity, description, productPic: picUrl, addedBy: isAdmin._id
+            productTitle, productPrice, inStock: quantity, description, productPic: cloudinaryRes.public_id, addedBy: isAdmin._id
         });
         await product.save();
         return res.status(200).json({success: true, message: 'Product added successfully!'})
     } catch (error) {
+        console.log(error)
         return res.status(400).json({success: false, error: error.message});
     };
 }

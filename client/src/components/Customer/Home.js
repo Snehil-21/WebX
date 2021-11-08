@@ -33,8 +33,10 @@ const Home = () => {
                     {allProd.map(product => {
                         return (
                             <ProductCard key={product._id}>
+                                    {/* <Info> */}
                                     <h4>{product.productTitle}</h4>
                                     <h5>Price: {product.productPrice}</h5>
+                                    {/* </Info> */}
                                     <div 
                                         style={{
                                             display: 'flex',
@@ -94,6 +96,11 @@ const ProductCard = styled.div`
     border: 2px solid black;
     border-radius: 25px;
     margin: 2% 0;
+`;
+
+const Info = styled.div`
+    display: flex;
+    flex-direction: row;
 `;
 
 export default Home;

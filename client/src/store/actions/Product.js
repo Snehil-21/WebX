@@ -30,17 +30,6 @@ export const getAllProducts = () => {
 export const addProduct = (productTitle, productPrice, quantity, description, productPic, adminEmail) => {
     return async(dispatch) => {
         try {
-            const formData = new FormData();
-            formData.append('file', productPic)
-            formData.append('upload_preset', 'customPreset')
-            
-            const cloudinaryRes = await axios({
-                method: 'POST',
-                url: 'https://api.cloudinary.com/v1_1/cloudsnehil/image/upload',
-                data: formData
-            })
-            // console.log(cloudinaryRes);
-            const picUrl = cloudinaryRes.data.public_id
             const response = await axios({
                 method: 'POST',
                 url: '/product/addProduct',
@@ -52,15 +41,32 @@ export const addProduct = (productTitle, productPrice, quantity, description, pr
                     productPrice,
                     quantity,
                     description,
-                    picUrl,
-                    adminEmail,
-                })
+                    productPic,
+                    adminEmail
+                }),
             });
+            // console.log(response)
             if(!response.data.success) {
                 throw new Error(response.data.message)
             }
         } catch (error) {
             throw new Error(error.message);
+        }
+    }
+}
+
+export const removeProduct = (deleteProductTitle) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios({
+                method: 'POST',
+                url: '/product/removeProduct',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+            })
+        } catch (error) {
+            throw new Error(error.message)
         }
     }
 }

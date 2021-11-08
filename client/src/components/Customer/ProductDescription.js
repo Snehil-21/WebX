@@ -21,9 +21,7 @@ export default function ProductDescription() {
     return (
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop:'6%'}}>
             {thisProduct.length > 0 && <h4>{thisProduct[0].description}</h4>}
-            <Image style={{ height: '400px' }} cloudName = 'cloudSnehil' publicId = {getUrl} />
-            <p>This page will contain individual stock data in the later stage.</p>
-            <h6>Some details about the particular stock which will be displayed once the user clicks the 'View More' button displayed on that particular stock.</h6>
+            <Image style={{ height: '400px', borderRadius: '25px' }} cloudName = 'cloudSnehil' publicId = {getUrl} />
         </div>
     )
 }

@@ -86,7 +86,7 @@ export const signupAdmin = (fullName, email, username, password) => {
 
 export const logInAdmin = (username, password) => {
     return async(dispatch) => {
-        console.log('Here')
+        // console.log('Here')
         try {
             const response = await axios({
                 method: 'POST',
