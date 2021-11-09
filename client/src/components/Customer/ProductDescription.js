@@ -14,7 +14,7 @@ export default function ProductDescription() {
 
     thisProduct = filterProducts()
     
-    console.log(thisProduct)
+    // console.log(thisProduct)
     if(thisProduct.length > 0)
         var getUrl = `https://res.cloudinary.com/cloudsnehil/image/upload/v1635787798/${thisProduct[0].productPic}`
 

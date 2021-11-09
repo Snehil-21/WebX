@@ -38,6 +38,7 @@ export default function Home () {
                 setProductPrice('')
                 setQuantity('')
                 setDescription('')
+                setProductPic('')
             }
         } catch (error) {
             addToast(error.message, {appearance: 'error'});
@@ -60,6 +61,7 @@ export default function Home () {
             if(deleteProductTitle.length > 0) {
                 await dispatch(productActions.removeProduct(
                     deleteProductTitle,
+                    adminEmail,
                 ))
                 setDeleteProductTitle('')
             }

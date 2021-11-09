@@ -8,9 +8,10 @@ router.use(express.json());
 router.use(cors());
 router.use(express.urlencoded({ extended: false }));
 
-const { getAllProducts, addProduct } = controller;
+const { getAllProducts, addProduct, removeProduct } = controller;
 
 router.get('/getAllProducts', getAllProducts);
 router.post('/addProduct', addProduct);
+router.post('/removeProduct', removeProduct);
 
 module.exports = router;

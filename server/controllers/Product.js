@@ -13,11 +13,11 @@ cloudinary.config({
 
 exports.getAllProducts = async(req, res) => {
     try{
-        const allProducts = await Product.find();
+        const allProducts = await Product.find().populate('addedBy');
         if(allProducts.length == 0) {
             return res.status(200).json({success: false, message: 'No products found in the shop!'})
         }
-        // allProducts.populate('addedBy')
+    
         return res.status(200).json({success: true, message: allProducts})
     } catch(error) {
         res.status(400).json({success: false, message: error.message});
@@ -28,7 +28,8 @@ exports.addProduct = async(req, res) => {
     const { productTitle, productPrice, quantity, description, productPic, adminEmail } = req.body;
     
     try {
-        const isProduct = await Product.findOne({productTitle});
+        const admin = await Admin.findOne({email: adminEmail})
+        const isProduct = await Product.findOne({productTitle, addedBy: admin._id});
         
         if(isProduct) {
             return res.status(200).json({success: false, message: 'Product already present in shop!'});
@@ -46,6 +47,7 @@ exports.addProduct = async(req, res) => {
                 folder: 'shop_products',
                 use_filename: true,
                 unique_filename: false,
+                // timeout: 60000,
             },
         )
 
@@ -58,4 +60,34 @@ exports.addProduct = async(req, res) => {
         console.log(error)
         return res.status(400).json({success: false, error: error.message});
     };
+}
+
+exports.removeProduct = async(req, res) => {
+    const { deleteProductTitle, adminEmail } = req.body
+    try {
+        const isAdmin = await Admin.findOne({ email: adminEmail })
+        if(!isAdmin) {
+            return res.status(200).json({success: false, message: 'Only admins can delete a product from the shop.'});
+        }
+
+        const isValid = await Product.findOne({addedBy: isAdmin._id, productTitle: deleteProductTitle})
+
+        if(!isValid) {
+            return res.status(200).json({success: false, message: 'Could not proceed with the request.'});
+        }
+
+        const cloudinaryRes = await cloudinary.uploader.destroy(
+            isValid.productPic
+        )
+
+        if(cloudinaryRes.result == "ok") {
+            await Product.deleteOne({ productTitle: deleteProductTitle })
+        }
+
+        return res.status(200).json({success: true, message: 'Product deleted successfully!'})
+
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({success: false, error: error.message})
+    }
 }

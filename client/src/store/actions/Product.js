@@ -55,7 +55,7 @@ export const addProduct = (productTitle, productPrice, quantity, description, pr
     }
 }
 
-export const removeProduct = (deleteProductTitle) => {
+export const removeProduct = (deleteProductTitle, adminEmail) => {
     return async (dispatch) => {
         try {
             const response = await axios({
@@ -64,7 +64,15 @@ export const removeProduct = (deleteProductTitle) => {
                 headers: {
                 'Content-Type': 'application/json',
                 },
-            })
+                data: JSON.stringify({
+                    deleteProductTitle,
+                    adminEmail
+                }),
+            });
+            // console.log(response)
+            if(!response.data.success) {
+                throw new Error(response.data.message)
+            }
         } catch (error) {
             throw new Error(error.message)
         }

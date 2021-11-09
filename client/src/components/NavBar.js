@@ -102,7 +102,8 @@ export default function ButtonAppBar({ admin }) {
                 <Button variant="contained" color="primary" className={classes.button}>Login</Button>
               </Link>
             </div>}
-            {(auth.isAuthCustomer || auth.isAuthAdmin) && <Button variant="contained" color="primary" onClick={handleLogout} className={classes.button}>Logout</Button>}
+            {(auth.isAuthCustomer) && <Link to='/wishlist' className={classes.link}><Button variant="contained" color="primary" className={classes.button} style={{marginRight: '10px'}}>WishList</Button></Link>}
+            {(auth.isAuthCustomer || auth.isAuthAdmin) && <Button variant="contained" color="secondary" onClick={handleLogout} className={classes.button}>Logout</Button>}
         </Toolbar>
       </AppBar>
   );

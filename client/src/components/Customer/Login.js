@@ -82,8 +82,8 @@ export default function Login() {
         <div className={classes.inDiv}>
             <Typography style={{color: '#000D4B', fontWeight: 'bold', fontSize: '2rem'}}>Log In <span style={{color: '#CCCFDB'}}>StockStop</span></Typography>
             <form className={classes.root} noValidate autoComplete="off">
-                <TextField id="outlined-basic" label="Username"     variant="outlined" className={classes.textfield} value={userName} onChange={(event) => setUserName(event.target.value)} />
-                <TextField id="outlined-basic" label="Password"     variant="outlined" type="password" className={classes.textfield} value={password} onChange={(event) => setPassword(event.target.value)} />
+                <TextField label="Username" variant="outlined" className={classes.textfield} value={userName} onChange={(event) => setUserName(event.target.value)} />
+                <TextField label="Password" autoComplete="off" variant="outlined" type="password" className={classes.textfield} value={password} onChange={(event) => setPassword(event.target.value)} />
                 <Button variant="contained" color="primary" className={classes.button} onClick={loginHandler}>Log-In</Button>
             </form>
         </div>

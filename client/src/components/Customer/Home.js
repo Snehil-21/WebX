@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Container, Button } from '@mui/material';
+import { Image } from 'cloudinary-react';
 
 import * as productActions from '../../store/actions/Product';
 import NavBar from '../NavBar';
@@ -33,10 +34,12 @@ const Home = () => {
                     {allProd.map(product => {
                         return (
                             <ProductCard key={product._id}>
-                                    {/* <Info> */}
-                                    <h4>{product.productTitle}</h4>
-                                    <h5>Price: {product.productPrice}</h5>
-                                    {/* </Info> */}
+                                    <Image style={{ height: '80%', borderRadius: '10px' }} cloudName = 'cloudSnehil' publicId = {`https://res.cloudinary.com/cloudsnehil/image/upload/v1635787798/${product.productPic}`} />
+                                    <Info>
+                                        <h4>Product Title: {product.productTitle}</h4>
+                                        <h5>Price: {product.productPrice}</h5>
+                                        <p>Added By: {product.addedBy.fullName}</p>
+                                    </Info>
                                     <div 
                                         style={{
                                             display: 'flex',
@@ -75,10 +78,9 @@ const StyledButton = styled(Button)`
 const ProductWrap = styled.div`
     width: 96%;
     height: 100%;
-    margin: 2% auto;
+    margin: 1% auto;
     display: grid;
-    grid-column-gap: 3%;
-    grid-template-columns: 31% 31% 31%;
+    grid-template-columns: 93%;
     position: relative;
     justify-content: center;
     align-items: center;
@@ -87,20 +89,20 @@ const ProductWrap = styled.div`
 const ProductCard = styled.div`
     display: flex;
     position: relative;
-    flex-direction: column;
+    flex-direction: row;
     color: black;
     background: beige;
     text-transform: capitalize;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     border: 2px solid black;
-    border-radius: 25px;
+    border-radius: 12px;
     margin: 2% 0;
 `;
 
 const Info = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 `;
 
 export default Home;
