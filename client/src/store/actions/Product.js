@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
+export const GET_WISHLIST_PRODUCTS = 'GET_WISHLIST_PRODUCTS';
 
 export const getAllProducts = () => {
     return async(dispatch) => {
@@ -74,6 +75,57 @@ export const removeProduct = (deleteProductTitle, adminEmail) => {
                 throw new Error(response.data.message)
             }
         } catch (error) {
+            throw new Error(error.message)
+        }
+    }
+}
+
+export const addToWishlist = (id, email) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios({
+                method: 'POST',
+                url: '/product/addToWishlist',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                data: JSON.stringify({
+                    id,
+                    email
+                }),
+            })
+            if(!response.data.success) {
+                throw new Error(response.data.message)
+            }
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    }
+}
+
+export const getWishlistProducts = (customerEmail) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios({
+                method: 'POST',
+                url: '/product/getWishlistProducts',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                data: JSON.stringify({
+                    customerEmail,
+                }),
+            })
+            // console.log(response.data.message[0].wishlist)
+            if(response.data.success) {
+                dispatch({
+                    type: GET_WISHLIST_PRODUCTS,
+                    payload: {
+                        allProducts: response.data.message,
+                    }
+                })
+            }
+        } catch(error) {
             throw new Error(error.message)
         }
     }

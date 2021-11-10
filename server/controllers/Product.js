@@ -1,6 +1,7 @@
 require('dotenv').config()
 const cloudinary = require('cloudinary').v2
 
+const User = require('../models/User');
 const Admin = require('../models/Admin');
 const Product = require('../models/Product');
 
@@ -88,6 +89,39 @@ exports.removeProduct = async(req, res) => {
 
     } catch (error) {
         console.log(error)
+        return res.status(400).json({success: false, error: error.message})
+    }
+}
+
+exports.addToWishlist = async (req, res) => {
+    const { id, email } = req.body
+    
+    try {
+        const user = await User.findOne({email})
+        
+        if(!user) {
+            return res.status(200).json({success: false, message: 'Only registered users can use this feature!'})
+        }
+
+        if(user.wishlist.includes(id)) {
+            return res.status(200).json({success: false, message: 'Item already present in wishlist!'})
+        }
+        
+        user.wishlist.push(id)
+        await user.save()
+        return res.status(200).json({success: true, message: 'Product added successfully to the wishlist!'})
+
+    } catch (error) {
+        return res.status(400).json({success: false, error: error.message})
+    }
+}
+
+exports.getWishlistProducts = async(req, res) => {
+    const { customerEmail } = req.body
+    try {
+        const allProducts = await User.find({email: customerEmail}).populate('wishlist');
+        return res.status(200).json({success: true, message: allProducts})
+    } catch(error) {
         return res.status(400).json({success: false, error: error.message})
     }
 }

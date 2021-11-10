@@ -8,10 +8,13 @@ import { Image } from 'cloudinary-react';
 
 import * as productActions from '../../store/actions/Product';
 import NavBar from '../NavBar';
+import { useToasts } from 'react-toast-notifications';
 
 const Home = () => {
+    const { addToast } = useToasts();
     const dispatch = useDispatch();
     const allProd = useSelector(state => state.Product.productsList);
+    const customerEmail = useSelector(state => state.Auth.email)
 
     useEffect(() => {
         async function getProducts() {
@@ -20,8 +23,14 @@ const Home = () => {
         getProducts();
     }, [dispatch])
 
-    const addToCartHandler = () => {
-        console.log('Added')
+    const addToWishlistHandler = async (e,prodId) => {
+        e.preventDefault()
+        try {
+            await dispatch(productActions.addToWishlist(prodId, customerEmail))
+            addToast('Added To Wishlist', {appearance: 'success'})
+        } catch(error) {
+            addToast(error.message, {appearance: 'error'})
+        }
     }
 
     // console.log('Products', allProd)
@@ -34,7 +43,7 @@ const Home = () => {
                     {allProd.map(product => {
                         return (
                             <ProductCard key={product._id}>
-                                    <Image style={{ height: '80%', borderRadius: '10px' }} cloudName = 'cloudSnehil' publicId = {`https://res.cloudinary.com/cloudsnehil/image/upload/v1635787798/${product.productPic}`} />
+                                    <Image style={{ height: '80%', borderRadius: '10px', maxHeight: '280px' }} cloudName = 'cloudSnehil' publicId = {`https://res.cloudinary.com/cloudsnehil/image/upload/v1635787798/${product.productPic}`} />
                                     <Info>
                                         <h4>Product Title: {product.productTitle}</h4>
                                         <h5>Price: {product.productPrice}</h5>
@@ -46,7 +55,7 @@ const Home = () => {
                                             gap: '8px',
                                         }}>
                                         <Link style={{textDecoration: 'none'}} to={`/product/${product._id}`}><StyledButton variant="contained" color="primary">View More</StyledButton></Link>
-                                        <Link style={{textDecoration: 'none'}} to=''><StyledButton variant="contained" color="primary" onClick={addToCartHandler}>Wishlist</StyledButton></Link>
+                                        <Link style={{textDecoration: 'none'}} to=''><StyledButton variant="contained" color="primary" onClick={(e) => addToWishlistHandler(e,product._id)}>Wishlist</StyledButton></Link>
                                     </div>
                             </ProductCard>
                         )

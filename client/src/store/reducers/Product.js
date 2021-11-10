@@ -1,7 +1,8 @@
-import { GET_ALL_PRODUCTS } from '../actions/Product';
+import { GET_ALL_PRODUCTS, GET_WISHLIST_PRODUCTS } from '../actions/Product';
 
 const initialState = {
     productsList: [],
+    wishlistProductsList: [],
 }
 
 export default function ProductReducer (state= initialState, action) {
@@ -10,6 +11,12 @@ export default function ProductReducer (state= initialState, action) {
             return {
                 ...state,
                 productsList: action.payload.allProducts,
+            }
+        }
+        case GET_WISHLIST_PRODUCTS : {
+            return {
+                ...state,
+                wishlistProductsList: action.payload.allProducts,
             }
         }
         default: {

@@ -8,9 +8,7 @@ import reportWebVitals from './reportWebVitals';
 axios.defaults.baseURL = 'http://localhost:5000';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <App />,
   document.getElementById('root')
 );
 

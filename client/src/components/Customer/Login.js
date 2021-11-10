@@ -80,7 +80,7 @@ export default function Login() {
   return (
     <div className={classes.body}>
         <div className={classes.inDiv}>
-            <Typography style={{color: '#000D4B', fontWeight: 'bold', fontSize: '2rem'}}>Log In <span style={{color: '#CCCFDB'}}>StockStop</span></Typography>
+            <Typography style={{color: '#000D4B', fontWeight: 'bold', fontSize: '2rem'}}>Log In <span style={{color: '#CCCFDB'}}>WebX</span></Typography>
             <form className={classes.root} noValidate autoComplete="off">
                 <TextField label="Username" variant="outlined" className={classes.textfield} value={userName} onChange={(event) => setUserName(event.target.value)} />
                 <TextField label="Password" autoComplete="off" variant="outlined" type="password" className={classes.textfield} value={password} onChange={(event) => setPassword(event.target.value)} />

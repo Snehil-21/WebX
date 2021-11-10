@@ -99,7 +99,7 @@ export default function SignUp() {
           <Navbar admin={false}/>
           <div className={classes.body}>
               <div className={classes.inDiv}>
-                  <Typography style={{color: '#000D4B', fontWeight: 'bold', fontSize: '2rem'}}>Sign-Up <span style={{color: '#CCCFDB'}}>StockStop</span></Typography>
+                  <Typography style={{color: '#000D4B', fontWeight: 'bold', fontSize: '2rem'}}>Sign-Up <span style={{color: '#CCCFDB'}}>WebX</span></Typography>
                   <form className={classes.root} noValidate autoComplete="off">
                       <TextField id="outlined-basic" label="Full Name"     variant="outlined" className={classes.textfield} value={fullName} onChange={(event) => setFullName(event.target.value)} />
                       <TextField id="outlined-basic" label="Email"     variant="outlined" className={classes.textfield} value={email} onChange={(event) => setEmail(event.target.value)} />
