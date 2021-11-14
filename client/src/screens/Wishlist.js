@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
+import styled from "styled-components";
 import * as productActions from '../../src/store/actions/Product';
 
 export default function Wishlist() {
@@ -17,12 +18,18 @@ export default function Wishlist() {
     // console.log(WishlistItems[0].wishlist)
     return (
         <>
-            <h2 style={{textDecoration: 'underline'}} >Wishlist</h2>
-            {WishlistItems[0].wishlist.map(item => {
-                return (
-                    <h5 key={item._id}>{item.productTitle}</h5>
-                )
-            })}
+            <Wrapper>
+                <h2 style={{textDecoration: 'underline'}} >Wishlist</h2>
+                {WishlistItems[0].wishlist.map(item => {
+                    return (
+                        <h5 key={item._id}>{item.productTitle}</h5>
+                    )
+                })}
+            </Wrapper>
         </>
     )
 }
+
+const Wrapper = styled.div`
+
+`;
