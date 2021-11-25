@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector , useDispatch} from "react-redux";
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { Container, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { Image } from 'cloudinary-react';
 
 import * as authActions from '../../store/actions/Auth';
@@ -28,7 +28,7 @@ const Home = () => {
         e.preventDefault()
         try {
             await dispatch(productActions.addToWishlist(prodId, customerEmail))
-            addToast('Added To Wishlist', {appearance: 'success'})
+            addToast('Added To Cart', {appearance: 'success'})
         } catch(error) {
             addToast(error.message, {appearance: 'error'})
         }
@@ -51,7 +51,7 @@ const Home = () => {
                 <h4>WebX</h4>
                 <div>
                     <Link style={{marginRight: '16px', textDecoration: 'none', color: '#000'}} to='/home'><span>Home</span></Link>
-                    <Link style={{textDecoration: 'none', color: '#000'}} to='/wishlist'><span>Wishlist</span></Link>
+                    <Link style={{textDecoration: 'none', color: '#000'}} to='/wishlist'><span>Cart</span></Link>
                 </div>
                 <div>
                     <Button onClick={handleLogout}>Logout</Button>
@@ -65,7 +65,7 @@ const Home = () => {
                             <Image style={{ minHeight: '70%', width: '75%',borderRadius: '25px' }} cloudName = 'cloudSnehil' publicId = {`https://res.cloudinary.com/cloudsnehil/image/upload/v1635787798/${product.productPic}`} />
                             <h4>{product.productTitle}</h4>
                             <h4>{product.productPrice}</h4>
-                            <StyledButton variant="contained" color="primary" onClick={(e) => addToWishlistHandler(e,product._id)}>Wishlist</StyledButton>
+                            <StyledButton variant="contained" color="primary" onClick={(e) => addToWishlistHandler(e,product._id)}>Add to Cart</StyledButton>
                         </ProductCard>
                         )
                     })}
@@ -116,13 +116,13 @@ const Main = styled.div`
     overflow-y: hidden;
     padding-bottom: 6%;
     >div {
-        // background: #FEC625;
+        background-image: linear-gradient(to bottom right, #DA0028, #B40048, #72028E, #3401CB);
         margin: 0 8%;
         border-radius: 25px;
-        max-height: 300px;
         display: flex;
         flex-basis: 33.33%;
         flex-wrap: wrap;
+        padding-bottom: 16px;
     }
 `;
 
@@ -149,16 +149,6 @@ const ProductCard = styled.div`
     }
 `;
 
-// const StyledContainer = styled(Container)`
-//     &.MuiContainer-root {
-//         margin: 0;
-//         padding: 0;
-//         max-width: 100%;
-//         display: flex;
-//         flex-direction: column;
-//     },
-// `;
-
 const StyledButton = styled(Button)`
     &.css-sghohy-MuiButtonBase-root-MuiButton-root {
         margin-bottom: 2%;
@@ -166,61 +156,4 @@ const StyledButton = styled(Button)`
     }
 `;
 
-const ProductWrap = styled.div`
-    width: 96%;
-    height: 100%;
-    margin: 1% auto;
-    display: grid;
-    grid-template-columns: 93%;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-`;
-
-// const ProductCard = styled.div`
-//     display: flex;
-//     position: relative;
-//     flex-direction: row;
-//     color: black;
-//     background: beige;
-//     text-transform: capitalize;
-//     justify-content: space-around;
-//     align-items: center;
-//     border: 2px solid black;
-//     border-radius: 12px;
-//     margin: 2% 0;
-// `;
-
-const Info = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
-
 export default Home;
-
-{/* <NavBar />
-    <StyledContainer>
-        <ProductWrap>
-            {allProd.map(product => {
-                return (
-                    <ProductCard key={product._id}>
-                            <Image style={{ height: '80%', borderRadius: '10px', maxHeight: '280px' }} cloudName = 'cloudSnehil' publicId = {`https://res.cloudinary.com/cloudsnehil/image/upload/v1635787798/${product.productPic}`} />
-                            <Info>
-                                <h4>Product Title: {product.productTitle}</h4>
-                                <h5>Price: {product.productPrice}</h5>
-                                <p>Added By: {product.addedBy.fullName}</p>
-                            </Info>
-                            <div 
-                                style={{
-                                    display: 'flex',
-                                    gap: '8px',
-                                }}>
-                                <Link style={{textDecoration: 'none'}} to={`/product/${product._id}`}><StyledButton variant="contained" color="primary">View More</StyledButton></Link>
-                                <Link style={{textDecoration: 'none'}} to=''><StyledButton variant="contained" color="primary" onClick={(e) => addToWishlistHandler(e,product._id)}>Wishlist</StyledButton></Link>
-                            </div>
-                    </ProductCard>
-                )
-            })}
-        </ProductWrap>
-        <p style={{position: 'relative'}}>Sample Text for now! Actual Data will be provided at the later stage here.</p>
-    </StyledContainer> */}
