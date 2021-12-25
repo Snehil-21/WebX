@@ -20,12 +20,14 @@ export default function Wishlist() {
     (state) => state.Product.wishlistProductsList
   );
 
+  // console.log("wishlist", WishlistItems);
+
   useEffect(() => {
     async function getProducts() {
       await dispatch(productActions.getWishlistProducts(customerEmail));
     }
     getProducts();
-  }, [dispatch, customerEmail]);
+  }, [customerEmail, dispatch]);
 
   const final = WishlistItems[0].wishlist;
   var amount = 0;
@@ -86,23 +88,31 @@ export default function Wishlist() {
               Logged In as <p>{customerName}</p>
             </h3>
             <h6>SHIPPING DETAILS</h6>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam eos
+              cupiditate deserunt, voluptas molestias numquam vel dolorum sed,
+              minima asperiores dolor odio exercitationem voluptatem!
+              Asperiores!
+            </p>
           </Left>
           <Right>
             <h4>Your Items</h4>
             <Rule />
-            {final.map((item) => {
-              return (
-                <>
-                  <WishlistCard
-                    name={item.productTitle}
-                    price={item.productPrice}
-                    pic={item.productPic}
-                  />
-                  <Rule />
-                </>
-              );
-            })}
-            <h4>Amount: ₹{amount}</h4>
+            {final.length > 0 &&
+              final.map((item) => {
+                return (
+                  <>
+                    <WishlistCard
+                      id={item._id}
+                      name={item.productTitle}
+                      price={item.productPrice}
+                      pic={item.productPic}
+                    />
+                    <Rule />
+                  </>
+                );
+              })}
+            <h4>Amount: Rs. {amount}</h4>
             <Rule />
           </Right>
         </Main>
@@ -113,7 +123,10 @@ export default function Wishlist() {
 
 const Wrapper = styled.div`
   background-color: #f7f7f7;
-  border-radius: 20px;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Header = styled.div`
@@ -125,6 +138,9 @@ const Header = styled.div`
   color: #000;
   z-index: 2;
   top: 0;
+  height: 20%;
+  position: sticky;
+  background: #f7f7f7;
 
   > h4 {
     font-size: 26px;
@@ -143,28 +159,37 @@ const Header = styled.div`
 
 const Main = styled.div`
   display: flex;
+  flex-direction: column;
   margin: 2% 16%;
+  height: 70%;
   background: linear-gradient(to bottom right, #fcfcfc, #fbedef, #fceef0);
+  align-items: center;
+  justify-content: center;
 `;
 
 const Left = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 90%;
   padding: 16px;
+  height: 100%;
   margin-right: 16px;
   > h3 > p {
     display: inline;
     color: gray;
     text-transform: uppercase;
   }
+  > p {
+    text-align: left;
+  }
 `;
 
 const Right = styled.div`
   display: flex;
-  width: 40%;
+  width: 90%;
   flex-direction: column;
   background-color: #fbfbfb;
+  height: 100%;
 `;
 
 const Rule = styled.hr`
