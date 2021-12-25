@@ -27,7 +27,7 @@ export default function Wishlist() {
       await dispatch(productActions.getWishlistProducts(customerEmail));
     }
     getProducts();
-  }, [customerEmail, dispatch]);
+  }, [dispatch]);
 
   const final = WishlistItems[0].wishlist;
   var amount = 0;
