@@ -22,19 +22,21 @@ export default function Wishlist() {
 
   // console.log("wishlist", WishlistItems);
 
+  async function getWishlist() {
+    await dispatch(productActions.getWishlistProducts(customerEmail));
+  }
   useEffect(() => {
-    async function getProducts() {
-      await dispatch(productActions.getWishlistProducts(customerEmail));
-    }
-    getProducts();
+    // console.log("Effect log");
+    getWishlist();
   }, [dispatch]);
 
-  const final = WishlistItems[0].wishlist;
+  const final = WishlistItems.length > 0 ? WishlistItems[0].wishlist : [];
   var amount = 0;
   //   console.log(final);
-  final.map((item) => {
-    return (amount += parseInt(item.productPrice));
-  });
+  final.length > 0 &&
+    final.map((item) => {
+      return (amount += parseInt(item.productPrice));
+    });
 
   const handleLogout = async () => {
     try {
@@ -98,10 +100,10 @@ export default function Wishlist() {
           <Right>
             <h4>Your Items</h4>
             <Rule />
-            {final.length > 0 &&
-              final.map((item) => {
+            {WishlistItems.length > 0 &&
+              WishlistItems[0].wishlist.map((item) => {
                 return (
-                  <>
+                  <div key={item._id}>
                     <WishlistCard
                       id={item._id}
                       name={item.productTitle}
@@ -109,7 +111,7 @@ export default function Wishlist() {
                       pic={item.productPic}
                     />
                     <Rule />
-                  </>
+                  </div>
                 );
               })}
             <h4>Amount: Rs. {amount}</h4>

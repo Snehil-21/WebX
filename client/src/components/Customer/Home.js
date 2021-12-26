@@ -7,7 +7,7 @@ import { Image } from "cloudinary-react";
 
 import * as authActions from "../../store/actions/Auth";
 import * as productActions from "../../store/actions/Product";
-import NavBar from "../NavBar";
+// import NavBar from "../NavBar";
 import { useToasts } from "react-toast-notifications";
 
 const Home = () => {
@@ -17,10 +17,11 @@ const Home = () => {
   const allProd = useSelector((state) => state.Product.productsList);
   const customerEmail = useSelector((state) => state.Auth.email);
 
+  async function getProducts() {
+    await dispatch(productActions.getAllProducts());
+  }
   useEffect(() => {
-    async function getProducts() {
-      await dispatch(productActions.getAllProducts());
-    }
+    // console.log("All products Effect");
     getProducts();
   }, [dispatch]);
 
@@ -73,30 +74,32 @@ const Home = () => {
       </Header>
       <Main>
         <div>
-          {allProd.map((product) => {
-            return (
-              <ProductCard>
-                <Image
-                  style={{
-                    minHeight: "70%",
-                    width: "75%",
-                    borderRadius: "25px",
-                  }}
-                  cloudName="cloudSnehil"
-                  publicId={`https://res.cloudinary.com/cloudsnehil/image/upload/v1635787798/${product.productPic}`}
-                />
-                <h4>{product.productTitle}</h4>
-                <h4>Rs. {product.productPrice}</h4>
-                <StyledButton
-                  variant="contained"
-                  color="primary"
-                  onClick={(e) => addToWishlistHandler(e, product._id)}
-                >
-                  Add to Cart
-                </StyledButton>
-              </ProductCard>
-            );
-          })}
+          {allProd.length === 0 && <>Loading...</>}
+          {allProd.length > 0 &&
+            allProd.map((product) => {
+              return (
+                <ProductCard key={product._id}>
+                  <Image
+                    style={{
+                      minHeight: "70%",
+                      width: "75%",
+                      borderRadius: "25px",
+                    }}
+                    cloudName="cloudSnehil"
+                    publicId={`https://res.cloudinary.com/cloudsnehil/image/upload/v1635787798/${product.productPic}`}
+                  />
+                  <h4>{product.productTitle}</h4>
+                  <h4>Rs. {product.productPrice}</h4>
+                  <StyledButton
+                    variant="contained"
+                    color="primary"
+                    onClick={(e) => addToWishlistHandler(e, product._id)}
+                  >
+                    Add to Cart
+                  </StyledButton>
+                </ProductCard>
+              );
+            })}
         </div>
       </Main>
     </Wrapper>

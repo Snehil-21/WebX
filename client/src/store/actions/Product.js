@@ -7,6 +7,7 @@ export const SET_WISHLIST_PRODUCTS = "SET_WISHLIST_PRODUCTS";
 
 export const getAllProducts = () => {
   return async (dispatch) => {
+    // console.log("all products action");
     try {
       const response = await axios({
         method: "GET",
@@ -114,7 +115,7 @@ export const addToWishlist = (id, email) => {
 export const getWishlistProducts = (customerEmail) => {
   return async (dispatch) => {
     try {
-      // console.log("Action here");
+      // console.log("Get Wishlist Action");
       const response = await axios({
         method: "POST",
         url: "/product/getWishlistProducts",
