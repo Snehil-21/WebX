@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import { TextField } from "@material-ui/core";
+import ShopLogo from "../../assets/shop-logo.jpg";
 import { useToasts } from "react-toast-notifications";
 
 import * as authActions from "../../store/actions/Auth";
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "2em 0",
     height: "80vh",
     width: "100vw",
+  },
+  social: {
+    height: "100%",
+    width: "40%",
   },
   inDiv: {
     width: "100%",
@@ -157,6 +162,7 @@ export default function SignUp() {
             </Button>
           </form>
         </div>
+        <img src={ShopLogo} alt="Social Media" className={classes.social} />
       </div>
     </>
   );

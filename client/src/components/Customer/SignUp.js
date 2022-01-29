@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import ShopLogo from "../../assets/shop-logo.jpg";
 import { TextField } from "@material-ui/core";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { useToasts } from "react-toast-notifications";
 import { Link } from "react-router-dom";
 
@@ -174,12 +174,7 @@ export default function SignUp() {
             </Link>
           </p>
         </div>
-        <motion.img
-          transition={{ ease: "easeOut", duration: 2 }}
-          src={ShopLogo}
-          alt="Social Media"
-          className={classes.social}
-        />
+        <img src={ShopLogo} alt="Social Media" className={classes.social} />
       </div>
     </>
   );

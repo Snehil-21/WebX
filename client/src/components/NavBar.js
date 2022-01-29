@@ -34,7 +34,14 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     position: "relative",
-    borderRadius: "12px",
+    border: "none",
+    outline: "none",
+    color: "black",
+    background: "#f7f7f7",
+    "&:hover": {
+      background: "#e7e7e7",
+      boxShadow: "5px 8px 10px #888",
+    },
     "@media(max-width: 640px)": {
       fontSize: "12px",
     },
@@ -99,24 +106,14 @@ export default function ButtonAppBar({ admin }) {
         {admin && !auth.isAuthCustomer && !auth.isAuthAdmin && (
           <div className={classes.rightContainer}>
             <Link to="/admin/login" className={classes.link}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-              >
-                Login
-              </Button>
+              <Button className={classes.button}>Login</Button>
             </Link>
           </div>
         )}
         {!admin && !auth.isAuthCustomer && !auth.isAuthAdmin && (
           <div className={classes.rightContainer}>
             <Link to="/login" className={classes.link}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-              >
+              <Button variant="contained" className={classes.button}>
                 Login
               </Button>
             </Link>
