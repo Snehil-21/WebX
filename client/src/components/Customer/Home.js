@@ -72,36 +72,34 @@ const Home = () => {
           <Button onClick={handleLogout}>Logout</Button>
         </div>
       </Header>
-      <Main>
-        <div>
-          {allProd.length === 0 && <>Loading...</>}
-          {allProd.length > 0 &&
-            allProd.map((product) => {
-              return (
-                <ProductCard key={product._id}>
-                  <Image
-                    style={{
-                      minHeight: "70%",
-                      width: "75%",
-                      borderRadius: "25px",
-                    }}
-                    cloudName="cloudSnehil"
-                    publicId={`https://res.cloudinary.com/cloudsnehil/image/upload/v1635787798/${product.productPic}`}
-                  />
-                  <h4>{product.productTitle}</h4>
-                  <h4>Rs. {product.productPrice}</h4>
-                  <StyledButton
-                    variant="contained"
-                    color="primary"
-                    onClick={(e) => addToWishlistHandler(e, product._id)}
-                  >
-                    Add to Cart
-                  </StyledButton>
-                </ProductCard>
-              );
-            })}
-        </div>
-      </Main>
+      <MainGrid>
+        {allProd.length === 0 && <>Loading...</>}
+        {allProd.length > 0 &&
+          allProd.map((product) => {
+            return (
+              <ProductCard key={product._id}>
+                <Image
+                  style={{
+                    minHeight: "70%",
+                    width: "75%",
+                    borderRadius: "6px",
+                  }}
+                  cloudName="cloudSnehil"
+                  publicId={`https://res.cloudinary.com/cloudsnehil/image/upload/v1635787798/${product.productPic}`}
+                />
+                <h4>{product.productTitle}</h4>
+                <h4>Rs. {product.productPrice}</h4>
+                <StyledButton
+                  variant="contained"
+                  color="primary"
+                  onClick={(e) => addToWishlistHandler(e, product._id)}
+                >
+                  Add to Cart
+                </StyledButton>
+              </ProductCard>
+            );
+          })}
+      </MainGrid>
     </Wrapper>
   );
 };
@@ -109,17 +107,20 @@ const Home = () => {
 const Wrapper = styled.div`
   margin: 0;
   padding: 0;
-  height: 100%;
   box-sizing: border-box;
   // max-width: 100vw;
   display: flex;
+  background-color: #f7f7f7;
   flex-direction: column;
-  background: #32dbc5;
   // overflow-x: hidden;
+
+  @media (max-width: 640px) {
+    font-size: 12px;
+  }
 `;
 
 const Header = styled.div`
-  margin: 1% 4%;
+  margin: 0 0 1% 0;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -128,7 +129,9 @@ const Header = styled.div`
   z-index: 2;
   position: sticky;
   top: 0;
-  background: #32dbc5;
+  padding: 0 2%;
+  background: #f0f3f5;
+  box-shadow: 5px 6px 8px #888;
   > h4 {
     font-size: 26px;
     font-weight: bold;
@@ -141,6 +144,23 @@ const Header = styled.div`
 
   > div > button {
     color: brown;
+  }
+`;
+
+const MainGrid = styled.div`
+  height: 100%;
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-gap: 4%;
+  padding: 0 3% 6% 3%;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 46% 46%;
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 96%;
+    padding-bottom: 50%;
   }
 `;
 
@@ -170,33 +190,24 @@ const Main = styled.div`
 
 const ProductCard = styled.div`
   display: flex;
-  // position: relative;
   flex-direction: column;
   color: #b8453b;
   background: beige;
   text-transform: capitalize;
   align-items: center;
   border: 2px solid black;
-  border-radius: 12px;
+  border-radius: 8px;
   margin: 2% 1%;
-  width: 31%;
+  width: 100%;
   height: 320px;
   padding-top: 8px;
+  box-shadow: 5px 10px 18px #888888;
 
   > h4 {
     margin: 4px;
   }
   > h6 {
     margin: 0;
-  }
-
-  @media (max-width: 1400px) {
-    width: 47%;
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-    margin: 4% 2%;
   }
 `;
 

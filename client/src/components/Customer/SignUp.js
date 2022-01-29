@@ -7,6 +7,7 @@ import ShopLogo from "../../assets/shop-logo.jpg";
 import { TextField } from "@material-ui/core";
 import { motion } from "framer-motion";
 import { useToasts } from "react-toast-notifications";
+import { Link } from "react-router-dom";
 
 import * as authActions from "../../store/actions/Auth";
 
@@ -90,6 +91,9 @@ export default function SignUp() {
         setUserName("");
         setPassword("");
         setConfPass("");
+        addToast("Sign Up successful,Login to continue!", {
+          appearance: "success",
+        });
       } else {
         addToast("An error occured.", { appearance: "error" });
         return;
@@ -163,6 +167,12 @@ export default function SignUp() {
               Sign-Up
             </Button>
           </form>
+          <p>
+            Have a product to sell? Sign Up as a{" "}
+            <Link to="/admin/signup">
+              <strong>seller!</strong>
+            </Link>
+          </p>
         </div>
         <motion.img
           transition={{ ease: "easeOut", duration: 2 }}

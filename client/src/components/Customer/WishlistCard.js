@@ -16,16 +16,17 @@ export const WishlistCard = ({ id, name, price, pic }) => {
     <Wrapper>
       <Card>
         <Image
-          style={{ minHeight: "10%", width: "25%", borderRadius: "25px" }}
+          style={{ width: "120px", borderRadius: "6px" }}
           cloudName="cloudSnehil"
           publicId={`https://res.cloudinary.com/cloudsnehil/image/upload/v1635787798/${pic}`}
         />
         <Details>
-          <h6>{name}</h6>
+          <h4>{name}</h4>
           <p>Rs. {price}</p>
         </Details>
+
+        <RemoveButton onClick={handleClick}>Remove</RemoveButton>
       </Card>
-      <RemoveButton onClick={handleClick}>Remove</RemoveButton>
     </Wrapper>
   );
 };
@@ -39,17 +40,22 @@ const Wrapper = styled.div`
 
 const RemoveButton = styled.button`
   font-size: 12px;
-  width: 20%;
   background: transparent;
   border: 1px solid beige;
   border-radius: 12px;
   background: salmon;
+  color: white;
 `;
 
 const Card = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 70%;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
 `;
 
 const Details = styled.div`
@@ -58,4 +64,10 @@ const Details = styled.div`
   align-items: center;
   justify-content: center;
   margin-left: 36px;
+
+  @media (max-width: 640px) {
+    flex-direction: row;
+    margin-left: 0;
+    gap: 24px;
+  }
 `;

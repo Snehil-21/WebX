@@ -132,7 +132,8 @@ const Wrapper = styled.div`
 `;
 
 const Header = styled.div`
-  margin: 0 4% 1% 4%;
+  margin: 0 0 1% 0;
+  padding: 0 2%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -142,7 +143,8 @@ const Header = styled.div`
   top: 0;
   height: 20%;
   position: sticky;
-  background: #f7f7f7;
+  background: #f0f3f5;
+  box-shadow: 5px 6px 8px #888;
 
   > h4 {
     font-size: 26px;

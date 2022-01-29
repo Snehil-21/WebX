@@ -8,6 +8,7 @@ import ShopLogo from "../../assets/shop-logo.jpg";
 import { TextField } from "@material-ui/core";
 import { motion } from "framer-motion";
 import { useToasts } from "react-toast-notifications";
+import { Link } from "react-router-dom";
 
 import * as authActions from "../../store/actions/Auth";
 
@@ -110,6 +111,12 @@ export default function Login() {
             Log-In
           </Button>
         </form>
+        <p>
+          Have a product to list? Log In as a{" "}
+          <Link to="/admin/login">
+            <strong>seller!</strong>
+          </Link>
+        </p>
       </div>
       <motion.img
         transition={{ ease: "easeOut", duration: 2 }}
